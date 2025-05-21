@@ -1,20 +1,20 @@
 import React from 'react';
 
-const GameLayout = ({ children, onReset, isGameWon }) => {
+const DispositionJeu = ({ enfants, surReinitialiser, partieGagnee }) => {
   return (
-    <div className="game-container">
-      <h1 className="game-title">Plata o Plomo Memory</h1>
-      <button className="reset-btn" onClick={onReset}>Reset</button>
+    <div className="conteneur-jeu">
+      <h1 className="titre-jeu">Plata o Plomo Memory</h1>
+      <button className="btn-reinitialiser" onClick={surReinitialiser}>Réinitialiser</button>
 
-      <div className="cards-grid">
-        {children}
+      <div className="grille-cartes">
+        {enfants}
       </div>
 
-      {isGameWon && (
-        <div className="win-message">🎉 Bien joué ! Toutes les paires trouvées 🎉</div>
+      {partieGagnee && (
+        <div className="message-victoire">🎉 Bien joué ! Toutes les paires trouvées 🎉</div>
       )}
     </div>
   );
 };
 
-export default GameLayout;
+export default DispositionJeu;
