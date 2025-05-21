@@ -5,10 +5,10 @@ import Card from './components/card/card';
 function App() {
   const handleReset = () => {
     console.log('Jeu réinitialisé');
-    // Logique de reset à implémenter plus tard
+    // Logique de reset à implémenter plus tard (voir qui s'en charge)
   };
 
-  // Exemple de tableau d'images pour 6 paires (12 cartes)
+  // Exemple de tableau d'images pour 6 paires (12 cartes) pour le moment
   const images = [
     '/src/assets/img/0eh6ppko.png',
     '/src/assets/img/m3z0ldlz.png',
@@ -30,7 +30,7 @@ function App() {
         <Card
           key={index}
           image={img}
-          isFlipped={false} // À remplacer par la logique de jeu
+          isFlipped={false} // ici aussi a remplacer par la logique de jeu (important)
           onClick={() => console.log(`Carte ${index + 1} cliquée`)}
         />
       ))}
