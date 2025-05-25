@@ -1,0 +1,68 @@
+/* src/components/BallAnimation.css */
+.ball-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.ball {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #ffcc00; /* Couleur dorée pour les balles */
+  border-radius: 50%;
+  box-shadow: 0 0 5px #ff9900, 0 0 10px #ff6600;
+  animation: shootBall 1.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  transform-origin: center;
+}
+
+@keyframes shootBall {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--target-x, 100vw), var(--target-y, 100vh)) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* Animation pour les cartes touchées */
+.card-hit {
+  animation: cardHitAnimation 0.5s ease-out forwards;
+}
+
+@keyframes cardHitAnimation {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.5) sepia(1) hue-rotate(-50deg);
+  }
+  100% {
+    transform: scale(0.9);
+    filter: brightness(0.7) grayscale(0.5);
+  }
+}
+
+/* Effet de trou de balle */
+.bullet-hole {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 70%);
+  border-radius: 50%;
+  z-index: 10;
+  pointer-events: none;
+}

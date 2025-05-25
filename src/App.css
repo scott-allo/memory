@@ -94,12 +94,13 @@ body, .conteneur-jeu {
 /* Grille des cartes */
 .grille-cartes, .cards-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+  grid-template-rows: repeat(4, 1fr);    /* 4 lignes */
   gap: 24px;
   width: 100%;
-  max-width: 900px;
+  max-width: 700px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 /* Cartes effet gangster */
@@ -184,4 +185,182 @@ body, .conteneur-jeu {
 @keyframes pulse {
   0% { transform: scale(1); opacity: 0.8; }
   100% { transform: scale(1.05); opacity: 1; }
+}
+
+/* Animation d'entrée */
+.intro-animation {
+  position: fixed;
+  inset: 0;
+  background: #181818;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 1s;
+}
+.avion {
+  width: 120px;
+  height: 60px;
+  background: url('/assets/cards/avion.jpg') center/contain no-repeat;
+  animation: avionArrive 2s linear forwards;
+}
+.pablo {
+  width: 100px;
+  height: 140px;
+  background: url('/assets/cards/pablo.png') center/contain no-repeat;
+  animation: pabloArrive 2s 1.5s forwards;
+  opacity: 0;
+}
+.main-poignee {
+  width: 80px;
+  height: 80px;
+  background: url('/assets/cards/handshake.png') center/contain no-repeat;
+  animation: mainPoignee 1s 3s forwards;
+  opacity: 0;
+}
+.texte-intro {
+  color: #FFD700;
+  font-size: 2rem;
+  margin-top: 2rem;
+  text-shadow: 2px 2px 8px #000;
+}
+
+@keyframes avionArrive {
+  0% { transform: translateX(-120vw); }
+  100% { transform: translateX(0); }
+}
+@keyframes pabloArrive {
+  0% { opacity: 0; transform: translateY(100px);}
+  100% { opacity: 1; transform: translateY(0);}
+}
+@keyframes mainPoignee {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fadeIn {
+  from { opacity: 0;}
+  to { opacity: 1;}
+}
+
+/* Animation de défaite */
+.defaite-animation {
+  position: fixed;
+  inset: 0;
+  background: rgba(24, 24, 24, 0.9);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.5s;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.flingue {
+  width: 120px;
+  height: 60px;
+  background: url('/assets/cards/glock.jpg') center/contain no-repeat;
+  animation: flingueTir 1s forwards;
+}
+
+.tir {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 60%, #c9181d 100%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: tirEffet 0.4s 0.7s forwards;
+}
+
+.texte-defaite {
+  color: #c9181d;
+  font-size: 2rem;
+  margin-top: 2rem;
+  text-shadow: 2px 2px 8px #000;
+  animation: textPulse 1.5s infinite alternate;
+}
+
+@keyframes textPulse {
+  0% { transform: scale(1); text-shadow: 2px 2px 8px #000; }
+  100% { transform: scale(1.1); text-shadow: 0 0 15px #ff0000, 0 0 25px #ff0000; }
+}
+
+/* Styles pour le bouton de test de défaite */
+.btn-test-defaite {
+  background: #333;
+  color: #fff;
+  border: 2px solid #555;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s, background 0.3s;
+}
+
+.btn-test-defaite:hover {
+  opacity: 1;
+  background: #444;
+}
+
+@keyframes flingueTir {
+  0% { transform: translateY(100px);}
+  100% { transform: translateY(0);}
+}
+@keyframes tirEffet {
+  0% { transform: translate(-50%, -50%) scale(0);}
+  100% { transform: translate(-50%, -50%) scale(1);}
+}
+
+/* Intro Video Styles */
+.intro-video-container, .start-screen {
+  position: fixed;
+  inset: 0;
+  background: #181818;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-video {
+  width: 90vw;
+  max-width: 700px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px #000a;
+}
+
+.btn-commencer {
+  margin-top: 2rem;
+  background: #c9181d;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  padding: 16px 40px;
+  font-family: 'Impact', 'Arial Black', Arial, sans-serif;
+  box-shadow: 0 4px 16px #0008;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-commencer:hover {
+  background: #ff2222;
+  transform: scale(1.08) rotate(-2deg);
 }
