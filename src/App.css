@@ -236,3 +236,39 @@ h1 {
     display: block;
     margin: 0 auto;
 }
+/* Intro Video Styles */
+.intro-video-container, .start-screen {
+  position: fixed;
+  inset: 0;
+  background: #181818;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-video {
+  width: 90vw;
+  max-width: 700px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px #000a;
+}
+
+.btn-commencer {
+  margin-top: 2rem;
+  background: #c9181d;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.5rem;
+  padding: 16px 40px;
+  font-family: 'Impact', 'Arial Black', Arial, sans-serif;
+  box-shadow: 0 4px 16px #0008;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-commencer:hover {
+  background: #ff2222;
+  transform: scale(1.08) rotate(-2deg);
+}
