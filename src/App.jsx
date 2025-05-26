@@ -1,38 +1,80 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useRef, useState } from "react";
+import Game from "./components/Game/Game";
+import IntroVideo from "./components/IntroVideo";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [phase, setPhase] = useState("start"); // 'start', 'intro', 'jeu'
+  const [isGameWon, setIsGameWon] = useState(false);
+  const [difficultyLevel, setDifficultyLevel] = useState(1);
+  const [targetCards, setTargetCards] = useState([]);
+  const audioRef = useRef(null);
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+  // Prépare l'audio une seule fois
+  useEffect(() => {
+    audioRef.current = new Audio("src/assets/audio/theme.mp3");
+    audioRef.current.volume = 0.5;
+    audioRef.current.loop = false;
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    };
+  }, []);
+
+  // Fonction pour lancer la musique
+  const playAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch((e) =>
+        console.error("Erreur de lecture audio:", e)
+      );
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.pause();
+          audioRef.current.currentTime = 0;
+        }
+      }, 30000);
+    }
+  };
+
+  // Phase 1 : écran d'accueil
+  if (phase === "start") {
+    return (
+      <div className="memory-narcos start-screen">
+        <h1>Bienvenue en Colombie gringoss</h1>
+        <button
+          className="narcos-button"
+          onClick={() => {
+            playAudio();
+            setPhase("intro");
+          }}
+        >
+          Commencer le jeu
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    );
+  }
+
+  // Phase 2 : vidéo d'intro
+  if (phase === "intro") {
+    return <IntroVideo onEnd={() => setPhase("jeu")} />;
+  }
+
+  // Phase 3 : jeu
+  return (
+    <div className="memory-narcos">
+      <h1>Plata o Plomo</h1>
+      <Game
+        isGameWon={isGameWon}
+        setIsGameWon={setIsGameWon}
+        difficultyLevel={difficultyLevel}
+        targetCards={targetCards}
+        setTargetCards={setTargetCards}
+      />
+    </div>
+  );
 }
 
-export default App
+export default App;
